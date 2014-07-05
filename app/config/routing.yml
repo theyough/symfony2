@@ -1,0 +1,5 @@
+medic_personnel:
+    resource: "@MedicPersonnelBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
