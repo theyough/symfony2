@@ -7,42 +7,43 @@ use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
-use Medic\Bundle\PersonnelBundle\Entity\Personnel;
-use Medic\Bundle\PersonnelBundle\Form\Type\PersonnelType;
+use Medic\Bundle\PersonnelBundle\Entity\Contrat;
+use Medic\Bundle\PersonnelBundle\Form\Type\ContratType;
 
-class DefaultController extends Controller
+class ContratController extends Controller
 {
     /**
-     * @Route("/personnel")
+     * @Route("/contrat")
      * @Template()
      */
     public function indexAction()
     {
-        $repository = $this->getDoctrine()->getRepository('MedicPersonnelBundle:Personnel');
-        $personnels = $repository->findAll();
-        return array('personnels' => $personnels);
+        $repository = $this->getDoctrine()->getRepository('MedicPersonnelBundle:Contrat');
+        $contrats = $repository->findAll();
+        return array('contrats' => $contrats);
     }
 
     /**
-     * @Route("/personnel/new")
+     * @Route("/contrat/new")
      * @Template()
      */
     public function newAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-        $form = $this->createForm(new PersonnelType(),new Personnel());
+        $form = $this->createForm(new ContratType(),new Contrat());
         $form->handleRequest($request);
 
         if ($form->isValid()) {
-            $personnel = $form->getData();
+            $contrat = $form->getData();
 
 
-            $em->persist($personnel);
+            $em->persist($contrat);
             $em->flush();
 
-            return $this->render('MedicPersonnelBundle:Default:new_sucess.html.twig',array('nom' => 'OK'));
+            return $this->render('MedicPersonnelBundle:Contrat:new_sucess.html.twig',array('nom' => 'OK'));
 
         }
         return array('form' => $form->createView());
     }
+
 }

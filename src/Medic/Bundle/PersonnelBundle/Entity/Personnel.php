@@ -2,6 +2,7 @@
 namespace Medic\Bundle\PersonnelBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Class Personnel
@@ -19,52 +20,67 @@ class Personnel
     private $id;
 
     /**
+     * @Assert\NotBlank()
      * @ORM\Column(type="string",nullable=false)
      */
     protected $nom;
 
     /**
+     * @Assert\NotBlank()
      * @ORM\Column(type="string",nullable=false)
      */
     protected $prenom;
 
     /**
+     * @Assert\NotBlank()
      * @ORM\Column(type="date",nullable=false)
      */
     private $date_naissance;
 
     /**
+     * @ORM\ManyToOne(targetEntity="Contrat")
+     * @ORM\JoinColumn(name="contrat_id",referencedColumnName="id")
+     */
+    private $type_contrat;
+
+    /**
+     * @Assert\NotBlank()
      * @ORM\Column(type="integer",nullable=false)
      */
     private $enfant;
 
     /**
+     * @Assert\NotBlank()
      * @ORM\Column(type="string",nullable=false)
      */
     private $adresse;
 
     /**
+     * @Assert\NotBlank()
      * @ORM\Column(type="string",nullable=false)
      */
     private $ville;
 
     /**
+     * @Assert\NotBlank()
      * @ORM\Column(type="integer",nullable=false)
      */
     private $code_postal;
 
     /**
-     * @ORM\Column(type="integer")
+     * @Assert\NotBlank()
+     * @ORM\Column(type="integer",nullable=false)
      */
     private $tel_fixe;
 
     /**
+     * @Assert\Blank()
      * @ORM\Column(type="integer")
      */
     private $tel_mobile;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="string")
      */
     private $poste;
 
@@ -334,5 +350,28 @@ class Personnel
     public function getFumeur()
     {
         return $this->fumeur;
+    }
+
+    /**
+     * Set type_contrat
+     *
+     * @param string $typeContrat
+     * @return Personnel
+     */
+    public function setTypeContrat($typeContrat)
+    {
+        $this->type_contrat = $typeContrat;
+
+        return $this;
+    }
+
+    /**
+     * Get type_contrat
+     *
+     * @return string 
+     */
+    public function getTypeContrat()
+    {
+        return $this->type_contrat;
     }
 }

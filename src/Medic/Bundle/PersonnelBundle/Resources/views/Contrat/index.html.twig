@@ -1,0 +1,10 @@
+{% extends "::base.html.twig" %}
+
+{% block title %}MedicPersonnelBundle:Contrat:index{% endblock %}
+
+{% block body %}
+<h1>Welcome to the Contrat:index page</h1>
+    {% for contrat in contrats %}
+        <li>{{ contrat.nom_contrat|e }}</li>
+    {% endfor %}
+{% endblock %}
