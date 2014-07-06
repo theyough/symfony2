@@ -12,8 +12,8 @@ class PersonnelType extends AbstractType
         $builder->add('nom');
         $builder->add('prenom');
         $builder->add('type_contrat','entity',array(
-            'class' => 'MedicPersonnelBundle:Personnel',
-            'property' => 'type_contrat'
+            'class' => 'MedicPersonnelBundle:Contrat',
+            'property' => 'nom_contrat'
         ));
         $builder->add('date_naissance','date');
         $builder->add('enfant');

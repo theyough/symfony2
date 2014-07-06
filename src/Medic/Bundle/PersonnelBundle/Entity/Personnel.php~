@@ -8,6 +8,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * Class Personnel
  * @package Medic\Bundle\PersonnelBundle\Entity
  * @ORM\Entity
+ * @ORM\HasLifecycleCallbacks
  * @ORM\Table(name="Personnel",uniqueConstraints={@ORM\UniqueConstraint(name="personnel",columns={"nom","prenom"})})
  */
 class Personnel
@@ -88,6 +89,29 @@ class Personnel
      * @ORM\Column(type="boolean")
      */
     private $fumeur;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $createdAt;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $updatedAt;
+
+    /** @ORM\PrePersist */
+    public function CreatedOnPrePersist()
+    {
+        $this->createdAt = new \DateTime();
+        $this->updatedAt = new \DateTime();
+    }
+
+    /** @ORM\PreUpdate */
+    public function UpdatedOnPreUpdate()
+    {
+        $this->updatedAt = new \DateTime();
+    }
 
     /**
      * Get id
@@ -373,5 +397,51 @@ class Personnel
     public function getTypeContrat()
     {
         return $this->type_contrat;
+    }
+
+    /**
+     * Set createdAt
+     *
+     * @param \DateTime $createdAt
+     * @return Personnel
+     */
+    public function setCreatedAt($createdAt)
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    /**
+     * Get createdAt
+     *
+     * @return \DateTime 
+     */
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
+    }
+
+    /**
+     * Set updateddAt
+     *
+     * @param \DateTime $updateddAt
+     * @return Personnel
+     */
+    public function setUpdateddAt($updateddAt)
+    {
+        $this->updateddAt = $updateddAt;
+
+        return $this;
+    }
+
+    /**
+     * Get updateddAt
+     *
+     * @return \DateTime 
+     */
+    public function getUpdateddAt()
+    {
+        return $this->updateddAt;
     }
 }

@@ -13,7 +13,7 @@ use Medic\Bundle\PersonnelBundle\Form\Type\ContratType;
 class ContratController extends Controller
 {
     /**
-     * @Route("/contrat")
+     * @Route("/contrat", name="contrat_home")
      * @Template()
      */
     public function indexAction()
@@ -35,12 +35,10 @@ class ContratController extends Controller
 
         if ($form->isValid()) {
             $contrat = $form->getData();
-
-
             $em->persist($contrat);
             $em->flush();
 
-            return $this->render('MedicPersonnelBundle:Contrat:new_sucess.html.twig',array('nom' => 'OK'));
+            return $this->redirect($this->generateUrl('contrat_home'));
 
         }
         return array('form' => $form->createView());

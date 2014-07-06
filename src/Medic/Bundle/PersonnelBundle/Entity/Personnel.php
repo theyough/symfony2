@@ -8,6 +8,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * Class Personnel
  * @package Medic\Bundle\PersonnelBundle\Entity
  * @ORM\Entity
+ * @ORM\HasLifecycleCallbacks
  * @ORM\Table(name="Personnel",uniqueConstraints={@ORM\UniqueConstraint(name="personnel",columns={"nom","prenom"})})
  */
 class Personnel
@@ -20,19 +21,19 @@ class Personnel
     private $id;
 
     /**
-     * @Assert\NotBlank()
+     * @Assert\NotNull()
      * @ORM\Column(type="string",nullable=false)
      */
     protected $nom;
 
     /**
-     * @Assert\NotBlank()
+     * @Assert\NotNull()
      * @ORM\Column(type="string",nullable=false)
      */
     protected $prenom;
 
     /**
-     * @Assert\NotBlank()
+     * @Assert\NotNull()
      * @ORM\Column(type="date",nullable=false)
      */
     private $date_naissance;
@@ -44,43 +45,42 @@ class Personnel
     private $type_contrat;
 
     /**
-     * @Assert\NotBlank()
+     * @Assert\NotNull()
      * @ORM\Column(type="integer",nullable=false)
      */
     private $enfant;
 
     /**
-     * @Assert\NotBlank()
+     * @Assert\NotNull()
      * @ORM\Column(type="string",nullable=false)
      */
     private $adresse;
 
     /**
-     * @Assert\NotBlank()
+     * @Assert\NotNull()
      * @ORM\Column(type="string",nullable=false)
      */
     private $ville;
 
     /**
-     * @Assert\NotBlank()
+     * @Assert\NotNull()
      * @ORM\Column(type="integer",nullable=false)
      */
     private $code_postal;
 
     /**
-     * @Assert\NotBlank()
+     * @Assert\NotNull()
      * @ORM\Column(type="integer",nullable=false)
      */
     private $tel_fixe;
 
     /**
-     * @Assert\Blank()
      * @ORM\Column(type="integer")
      */
     private $tel_mobile;
 
     /**
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="integer")
      */
     private $poste;
 
@@ -88,6 +88,29 @@ class Personnel
      * @ORM\Column(type="boolean")
      */
     private $fumeur;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $createdAt;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $updatedAt;
+
+    /** @ORM\PrePersist */
+    public function CreatedOnPrePersist()
+    {
+        $this->createdAt = new \DateTime();
+        $this->updatedAt = new \DateTime();
+    }
+
+    /** @ORM\PreUpdate */
+    public function UpdatedOnPreUpdate()
+    {
+        $this->updatedAt = new \DateTime();
+    }
 
     /**
      * Get id
@@ -373,5 +396,74 @@ class Personnel
     public function getTypeContrat()
     {
         return $this->type_contrat;
+    }
+
+    /**
+     * Set createdAt
+     *
+     * @param \DateTime $createdAt
+     * @return Personnel
+     */
+    public function setCreatedAt($createdAt)
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    /**
+     * Get createdAt
+     *
+     * @return \DateTime 
+     */
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
+    }
+
+    /**
+     * Set updateddAt
+     *
+     * @param \DateTime $updateddAt
+     * @return Personnel
+     */
+    public function setUpdateddAt($updateddAt)
+    {
+        $this->updateddAt = $updateddAt;
+
+        return $this;
+    }
+
+    /**
+     * Get updateddAt
+     *
+     * @return \DateTime 
+     */
+    public function getUpdateddAt()
+    {
+        return $this->updateddAt;
+    }
+
+    /**
+     * Set updatedAt
+     *
+     * @param \DateTime $updatedAt
+     * @return Personnel
+     */
+    public function setUpdatedAt($updatedAt)
+    {
+        $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    /**
+     * Get updatedAt
+     *
+     * @return \DateTime 
+     */
+    public function getUpdatedAt()
+    {
+        return $this->updatedAt;
     }
 }

@@ -5,6 +5,6 @@
 {% block body %}
 <h1>Welcome to the Contrat:index page</h1>
     {% for contrat in contrats %}
-        <li>{{ contrat.nom_contrat|e }}</li>
+        <li>{{ contrat.id|e }}</li>
     {% endfor %}
 {% endblock %}

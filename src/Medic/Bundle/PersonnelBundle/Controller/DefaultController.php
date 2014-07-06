@@ -13,7 +13,7 @@ use Medic\Bundle\PersonnelBundle\Form\Type\PersonnelType;
 class DefaultController extends Controller
 {
     /**
-     * @Route("/personnel")
+     * @Route("/personnel", name="personnel_home")
      * @Template()
      */
     public function indexAction()
@@ -35,12 +35,10 @@ class DefaultController extends Controller
 
         if ($form->isValid()) {
             $personnel = $form->getData();
-
-
             $em->persist($personnel);
             $em->flush();
 
-            return $this->render('MedicPersonnelBundle:Default:new_sucess.html.twig',array('nom' => 'OK'));
+            return $this->redirect($this->generateUrl('personnel_home'));
 
         }
         return array('form' => $form->createView());
